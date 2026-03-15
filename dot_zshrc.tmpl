@@ -1,0 +1,65 @@
+# https://unix.stackexchange.com/a/71258/191603
+
+# -----------------
+# Shell completions
+# -----------------
+{{ if eq .chezmoi.os "darwin" -}}
+# Add completions from homebrew
+if type brew &>/dev/null; then
+  # Note: not using `brew --prefix` since it's slow
+  FPATH=$HOMEBREW_PREFIX/share/zsh-completions:$FPATH
+fi
+{{ end -}}
+
+# Add zsh's own completion system
+autoload -Uz compinit && compinit
+
+# -------------------
+# Shell customisation
+# -------------------
+autoload -Uz vcs_info
+autoload -U colors && colors
+precmd() { vcs_info }
+
+# Format the vcs_info_msg_0_ variable.
+# Space prefix is intended.
+zstyle ':vcs_info:git:*' formats ' (%b)'
+
+# Set up the prompt (with git branch name)
+setopt PROMPT_SUBST
+# Lack of space between directory and branch name is intended.
+# On use of colours + dir trimming: https://stackoverflow.com/a/2534676/2083599
+PROMPT='%n %{$fg[green]%}%(8~|%-1~/…/%6~|%7~)%{$fg[yellow]%}${vcs_info_msg_0_}%{$reset_color%} $ '
+
+# -----------
+# Other stuff
+# -----------
+# Mass file moving extension
+# https://github.com/zsh-users/zsh/blob/99d915330aa470e5ca723084f54910d82aec444d/Functions/Misc/zmv
+autoload -U zmv
+
+# https://github.com/Schniz/fnm
+shell_init fnm env
+
+# https://github.com/rbenv/rbenv
+# http://mattgreensmith.net/2014/12/25/speed-up-rbenv-init-via-background-rehashing/
+# Currently disabled because this adds 1.5s to terminal startup time
+# shell_init rbenv init --no-rehash - zsh
+# (rbenv rehash &) 2> /dev/null
+
+# Currently disabled because this adds 3.5s (not rehasing) to 8s (with rehashing) to terminal startup time
+# shell_init pyenv init --no-rehash -
+# (pyenv rehash &) 2> /dev/null
+
+# ------------
+# Path changes
+# ------------
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Add homebrew to the PATH on ARM machines
+# Currently disabled as it's in /etc/zprofile
+# eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# macOS clang overrides brew's one for some reason, so update it here
+export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
+{{ end -}}
