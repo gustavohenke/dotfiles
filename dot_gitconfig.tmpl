@@ -1,0 +1,48 @@
+[user]
+  name = {{ .name }}
+  email = {{ .email }}
+
+[core]
+  editor = open -W -n
+
+[log]
+  abbrevCommit = true
+  decorate = true
+
+[format]
+  pretty = oneline
+
+[alias]
+  l = log --graph --color
+  fp = fetch --prune
+  cp = cherry-pick
+
+[diff "plist"]
+  textconv = plutil -convert xml1 -o -
+
+[filter "lfs"]
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+
+[protocol]
+  version = 2
+
+[pull]
+  ff = only
+
+[init]
+  defaultBranch = main
+
+[push]
+  autoSetupRemote = true
+
+{{ if hasKey . "git" -}}
+{{ range $key, $value := .git -}}
+[{{ $key }}]
+  {{ range $key2, $value2 := $value -}}
+  {{ $key2 }} = {{ $value2 }}
+{{ end -}}
+{{ end }}
+{{ end -}}
