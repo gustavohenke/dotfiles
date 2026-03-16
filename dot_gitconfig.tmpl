@@ -38,11 +38,8 @@
 [push]
   autoSetupRemote = true
 
-{{ if hasKey . "git" -}}
-{{ range $key, $value := .git -}}
-[{{ $key }}]
-  {{ range $key2, $value2 := $value -}}
-  {{ $key2 }} = {{ $value2 }}
-{{ end -}}
-{{ end }}
-{{ end -}}
+{{ if eq .profile "work-laptop" -}}
+{{/* Canvaboy is a desktop tool, so not meaningful in a devbox that's accessed via SSH */}}
+[canvaboy]
+  githubToken = {{ onepasswordRead "op://dotfiles/GitHub Token - Canvaboy/token" "my" }}
+{{- end -}}
