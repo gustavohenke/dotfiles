@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+echo
+echo
+echo "Installing packages..."
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Brewfile hash: {{ include "Brewfile" | sha256sum }}
+brew bundle --file={{ joinPath .chezmoi.sourceDir "Brewfile" | quote }}
+{{ end -}}
+
+echo
+echo
+echo "--------------------------------"
+echo
+echo
+
+echo "Installing Node.js..."
+fnm install --lts --use --corepack-enabled
+corepack enable pnpm
+
+node -v
+pnpm -v
