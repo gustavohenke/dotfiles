@@ -3,6 +3,10 @@
 {{- $profileChoices := list "personal" "work-laptop" "work-devbox" -}}
 {{- $profile := env "DOTFILES_PROFILE" | default (promptChoiceOnce . "profile" "What's this machine's profile" $profileChoices) -}}
 
+[edit]
+  command = "code"
+  args = ["--wait"]
+
 [data]
   name = {{ $name | quote }}
   email = {{ $email | quote }}
