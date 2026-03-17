@@ -1,7 +1,7 @@
-{{- $name := promptStringOnce . "name" "What is your name" -}}
-{{- $email := promptStringOnce . "email" "What is your email address" -}}
+{{- $name := env "DOTFILES_NAME" | default (promptStringOnce . "name" "What is your name") -}}
+{{- $email := env "DOTFILES_EMAIL" | default (promptStringOnce . "email" "What is your email address") -}}
 {{- $profileChoices := list "personal" "work-laptop" "work-devbox" -}}
-{{- $profile := promptChoiceOnce . "profile" "What's this machine's profile" $profileChoices -}}
+{{- $profile := env "DOTFILES_PROFILE" | default (promptChoiceOnce . "profile" "What's this machine's profile" $profileChoices) -}}
 
 [data]
   name = {{ $name | quote }}
