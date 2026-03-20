@@ -82,7 +82,7 @@ export CANVA="$HOME/Developer/canva/canva"
 export CANVA="$HOME/work/canva"
 {{- end -}}
 
-{{ if eq .profile "work-laptop" "work-devbox" -}}
+{{ if eq .profile "work-laptop" -}}
 export HOMEBREW_GITHUB_API_TOKEN={{ onepasswordRead "op://dotfiles/GitHub Token - Homebrew/token" "my" }}
 {{- end }}
 
