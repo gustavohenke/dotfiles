@@ -4,8 +4,12 @@
 {{- $profile := env "DOTFILES_PROFILE" | default (promptChoice "What's this machine's profile" $profileChoices) -}}
 
 [edit]
+{{- if eq .chezmoi.os "darwin" }}
   command = "code"
   args = ["--wait"]
+{{- else }}
+  command = "nano"
+{{- end }}
 
 [data]
   name = {{ $name | quote }}
