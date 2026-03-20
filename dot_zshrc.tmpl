@@ -61,5 +61,5 @@ shell_init fnm env
 # eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # macOS clang overrides brew's one for some reason, so update it here
-export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$HOME/.local/bin:$PATH"
 {{ end -}}
