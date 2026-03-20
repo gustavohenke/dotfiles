@@ -1,4 +1,5 @@
 #!/bin/sh
 set -eu
 
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply gustavohenke
+# Install to current user's local bins only
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --apply gustavohenke
