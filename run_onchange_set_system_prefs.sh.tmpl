@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+{{ if eq .chezmoi.os "darwin" -}}
+defaults write com.apple.dock "orientation" -string "bottom"
+defaults write com.apple.dock "tilesize" -int "60"
+defaults write com.apple.dock "autohide" -bool "false"
+defaults write com.apple.dock "show-recents" -bool "false"
+defaults write com.apple.screencapture "location" -string "~/Screenshots"
+defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true"
+defaults write com.apple.finder "AppleShowAllFiles" -bool "true"
+defaults write com.apple.finder "ShowPathbar" -bool "false"
+defaults write com.apple.finder "FXPreferredViewStyle" -string "clmv"
+defaults write NSGlobalDomain "NSDocumentSaveNewDocumentsToCloud" -bool "false"
+defaults write com.apple.finder "ShowStatusBar" -bool "true"
+defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
+defaults write NSGlobalDomain AppleKeyboardUIMode -int "2"
+defaults write com.apple.iphonesimulator "ScreenShotSaveLocation" -string "~/Screenshots"
+
+# Apply changes
+killall Dock
+killall Finder
+killall SystemUIServer
+{{ end -}}
