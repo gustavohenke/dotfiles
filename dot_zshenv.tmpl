@@ -91,7 +91,7 @@ export HOMEBREW_GITHUB_API_TOKEN={{ onepasswordRead "op://dotfiles/GitHub Token 
 # --------------
 
 {{ if eq .profile "work-laptop" "work-devbox" -}}
-alias canva='cd $CANVA && clear'
+alias canva='cd $CANVA'
 alias sb='canva && cd web && pnpm storybook:single'
 alias run_page='canva && cd web && pnpm webpack-dev-server -e'
 alias gendeps='canva && cd web && pnpm lint:deps:fix'
