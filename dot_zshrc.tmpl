@@ -38,6 +38,10 @@ PROMPT='%n %{$fg[green]%}%(8~|%-1~/…/%6~|%7~)%{$fg[yellow]%}${vcs_info_msg_0_}
 # https://github.com/zsh-users/zsh/blob/99d915330aa470e5ca723084f54910d82aec444d/Functions/Misc/zmv
 autoload -U zmv
 
+{{ if eq .chezmoi.os "darwin" -}}
+shell_init /opt/homebrew/bin/brew shellenv
+{{ end -}}
+
 # https://github.com/Schniz/fnm
 shell_init fnm env
 
@@ -56,10 +60,6 @@ shell_init fnm env
 # ------------
 
 {{ if eq .chezmoi.os "darwin" -}}
-# Add homebrew to the PATH on ARM machines
-# Currently disabled as it's in /etc/zprofile
-# eval "$(/opt/homebrew/bin/brew shellenv)"
-
 # macOS clang overrides brew's one for some reason, so update it here
 export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$HOME/.local/bin:$PATH"
 {{ end -}}
