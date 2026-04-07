@@ -31,13 +31,14 @@ reset_shell_init() {
 # ```
 shell_init() {
     local tool="$1"
+    local tool_name=$(basename "$tool")
     local cache_dir="$HOME/.shell_init"
     mkdir -p "$cache_dir"
 
     local tool_version=$("$tool" --version)
     local tool_header="# $tool_version; $@"
 
-    local cache_file="$cache_dir/$tool"
+    local cache_file="$cache_dir/$tool_name"
     local regenerate=0
 
     if [[ ! -f "$cache_file" ]]; then
