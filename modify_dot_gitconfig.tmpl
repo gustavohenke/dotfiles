@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+marker="# ----- CHEZMOI END ----- #"
+
+# stdin = existing file
+existing_content="$(cat)"
+
+# Rendered template (what chezmoi wants the file to be)
+# Note: using single quotes to avoid quotes being removed, e.g. around `name = "Foo Bar"`
+new_content='{{ includeTemplate "gitconfig.tmpl" . }}'
+
+# Extract tail from existing file
+tail_content="$(awk -v marker="$marker" '
+  found { print }
+  $0 == marker { found=1 }
+' <<< "$existing_content")"
+
+# Output: fresh template + preserved tail
+if [[ -n "$tail_content" ]]; then
+  printf '%s%s\n' "$new_content" "$tail_content"
+else
+  printf '%s\n' "$new_content"
+fi
