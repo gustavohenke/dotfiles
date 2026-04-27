@@ -6,9 +6,12 @@ echo
 echo "::: Running run_onchange_install_packages.sh script"
 echo "Installing packages..."
 
-{{ if eq .chezmoi.os "darwin" -}}
-# Brewfile hash: {{ include "Brewfile" | sha256sum }}
-brew bundle --file={{ joinPath .chezmoi.sourceDir "Brewfile" | quote }}
+{{ if eq .profile "personal" "work-laptop" -}}
+# GUI Brewfile hash: {{ include "brewfiles/gui" | sha256sum }}
+brew bundle --file={{ joinPath .chezmoi.sourceDir "brewfiles/gui" | quote }}
+{{ else if eq .profile "server" -}}
+# Headless Brewfile hash: {{ include "brewfiles/headless" | sha256sum }}
+brew bundle --file={{ joinPath .chezmoi.sourceDir "brewfiles/headless" | quote }}
 {{ end -}}
 
 echo

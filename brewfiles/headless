@@ -1,0 +1,3 @@
+brew "ffmpeg"
+brew "fnm"
+brew "httpie"
