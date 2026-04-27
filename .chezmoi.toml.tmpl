@@ -15,3 +15,6 @@
   name = {{ $name | quote }}
   email = {{ $email | quote }}
   profile = {{ $profile | quote }}
+
+[hooks.read-source-state.pre]
+  command = "{{ .chezmoi.sourceDir }}/.chezmoihooks/hook_read-source-state.pre.sh"
