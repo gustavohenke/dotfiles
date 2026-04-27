@@ -12,5 +12,5 @@ set to make it initialize correctly:
 ```sh
 export DOTFILES_NAME="Person name"
 export DOTFILES_EMAIL="person@example.com"
-export DOTFILES_PROFILE="personal" # can be one of personal, work-laptop, or work-devbox
+export DOTFILES_PROFILE="personal" # can be one of personal, server, work-laptop, or work-devbox
 ```

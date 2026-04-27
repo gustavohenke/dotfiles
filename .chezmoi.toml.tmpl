@@ -1,6 +1,6 @@
 {{- $name := env "DOTFILES_NAME" | default (promptString "What is your name") -}}
 {{- $email := env "DOTFILES_EMAIL" | default (promptString "What is your email address") -}}
-{{- $profileChoices := list "personal" "work-laptop" "work-devbox" -}}
+{{- $profileChoices := list "personal" "server "work-laptop" "work-devbox" -}}
 {{- $profile := env "DOTFILES_PROFILE" | default (promptChoice "What's this machine's profile" $profileChoices) -}}
 
 [edit]
