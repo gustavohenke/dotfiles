@@ -1,6 +1,10 @@
 #!/bin/sh
 set -eu
 
+echo
+echo
+echo "::: Running run_onchange_set_system_prefs.sh script"
+
 {{ if eq .chezmoi.os "darwin" -}}
 defaults write com.apple.dock "orientation" -string "bottom"
 defaults write com.apple.dock "tilesize" -int "60"
