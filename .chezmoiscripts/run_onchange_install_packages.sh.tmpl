@@ -4,7 +4,15 @@ set -eu
 echo
 echo
 echo "::: Running run_onchange_install_packages.sh script"
-echo "Installing packages..."
+
+{{ if and (eq .chezmoi.os "linux") (eq .profile "server") -}}
+echo "Installing apt packages..."
+sudo apt update
+sudo apt install -y {{ .packages.apt | join " " }}
+echo
+{{ end -}}
+
+echo "Installing Homebrew packages..."
 
 {{ if eq .profile "personal" "work-laptop" -}}
 # GUI Brewfile hash: {{ include "brewfiles/gui" | sha256sum }}
