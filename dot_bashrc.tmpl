@@ -4,6 +4,4 @@
 # Shell initializations
 # ---------------------
 
-shell_init /opt/homebrew/bin/brew shellenv
-# https://github.com/Schniz/fnm
-shell_init fnm env
+{{ includeTemplate ".shells/shell_init" . }}
