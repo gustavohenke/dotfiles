@@ -1,0 +1,6 @@
+{{- if eq .chezmoi.os "darwin" }}
+.bashrc
+{{- else }}
+.zshenv
+.zshrc
+{{- end }}

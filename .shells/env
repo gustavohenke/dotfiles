@@ -1,0 +1,116 @@
+# ----------------
+# Custom functions
+# ----------------
+
+# Easily dump and reinstall node_modules - package manager agnostic
+windows_restart() {
+    rm -rf node_modules
+    if [ -f "pnpm-lock.yaml" ]; then
+        pnpm install
+    elif [ -f "yarn.lock" ]; then
+        yarn
+    else
+        npm install
+    fi
+}
+
+# Reset shell_init()'s cache.
+reset_shell_init() {
+    rm -rf "$HOME/.shell_init"
+}
+
+# Initialize a tool's shell environment (e.g. `pyenv init` or `fnm env`) using cached output to
+# avoid re-running the command. Useful if some command could make starting a new shell slow.
+#
+# Usage example:
+#
+# ```sh
+# shell_init pyenv init -
+# ```
+shell_init() {
+    local tool="$1"
+    local tool_name=$(basename "$tool")
+    local cache_dir="$HOME/.shell_init"
+    mkdir -p "$cache_dir"
+
+    local tool_version=$("$tool" --version)
+    local tool_header="# $tool_version; $@"
+
+    local cache_file="$cache_dir/$tool_name"
+    local regenerate=0
+
+    if [[ ! -f "$cache_file" ]]; then
+        regenerate=1
+    else
+        # Read the first line of the file
+        local curr_header
+        read -r curr_header < "$cache_file"
+
+        if [[ "$curr_header" != "$tool_header" ]]; then
+            regenerate=1
+        fi
+    fi
+
+    if (( regenerate )); then
+        # Delete old init files
+        rm -rf "$cache_dir/*"
+
+        # Create the new one using the input args
+        {
+            echo "$tool_header"
+            "$@" 2> /dev/null
+        } >| "$cache_file"
+    fi
+
+    source "$cache_file"
+}
+
+# ------------------------------------------
+
+# ---------------
+# Custom env vars
+# ---------------
+export NODE_MAX_OLD_SPACE_SIZE="16384" # 16 GB
+export JAVA_HOME=$(/usr/libexec/java_home 2> /dev/null)
+export MULTI_COMPILER=true
+export USER_LOCALE=en
+
+{{ if eq .profile "work-laptop" -}}
+export CANVA="$HOME/Developer/canva/canva"
+{{ else if eq .profile "work-devbox" -}}
+export CANVA="$HOME/work/canva"
+{{- end -}}
+
+{{ if eq .profile "work-laptop" -}}
+export HOMEBREW_GITHUB_API_TOKEN={{ onepasswordRead "op://dotfiles/GitHub Token - Homebrew/token" "my" }}
+{{- end }}
+
+# --------------
+# Custom aliases
+# --------------
+
+{{ if eq .profile "work-laptop" "work-devbox" -}}
+alias canva='cd $CANVA'
+alias sb='canva && cd web && pnpm storybook:single'
+alias run_page='canva && cd web && pnpm webpack-dev-server -e'
+alias gendeps='canva && cd web && pnpm lint:deps:fix'
+{{- end }}
+
+# ------------
+# Path changes
+# ------------
+
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi # added by Nix installer
+if [ -s "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
+
+# this enables `pnpm link -g`, basically
+{{ if eq .chezmoi.os "darwin" -}}
+export PNPM_HOME="$HOME/Library/pnpm"
+{{ else -}}
+export PNPM_HOME="$HOME/.local/share/pnpm"
+{{ end -}}
+
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
