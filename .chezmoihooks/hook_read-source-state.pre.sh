@@ -30,7 +30,8 @@ install_deps() {
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     # Only temporarily add homebrew here; it'll be added to the shell environment permanently in the .zshenv file later
-    eval "$(get_brew_path) shellenv"
+    brew_path=$(get_brew_path)
+    eval "$($brew_path shellenv)"
   fi
 }
 
