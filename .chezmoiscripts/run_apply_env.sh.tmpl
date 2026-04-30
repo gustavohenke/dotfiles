@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Scripts might depend on paths exposed by the envfile (e.g. homebrew).
+# If it's not yet there, they will fail, so source the envfile ahead of them running.
+echo "::: Sourcing envfile"
+source "{{ joinPath .chezmoi.homeDir .envfile }}"
