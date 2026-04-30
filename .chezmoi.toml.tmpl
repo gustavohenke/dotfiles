@@ -18,6 +18,7 @@
   name = {{ $name | quote }}
   email = {{ $email | quote }}
   profile = {{ $profile | quote }}
+  shell = "{{ if eq .chezmoi.os "darwin" }}zsh{{ else }}bash{{ end }}"
   envfile = "{{ if eq .chezmoi.os "darwin" }}.zshenv{{ else }}.bashrc{{ end }}"
 
 [hooks.read-source-state.pre]
