@@ -3,7 +3,9 @@ set -eu
 
 echo
 echo
-echo "::: Running run_onchange_install_packages.sh script"
+echo "::: Running install_packages.sh script"
+
+{{ includeTemplate "source_env.tmpl" . }}
 
 {{ if and (eq .chezmoi.os "linux") (eq .profile "server") -}}
 echo "Installing apt packages..."
@@ -21,20 +23,3 @@ brew bundle --file={{ joinPath .chezmoi.sourceDir "brewfiles/gui" | quote }}
 # Headless Brewfile hash: {{ include "brewfiles/headless" | sha256sum }}
 brew bundle --file={{ joinPath .chezmoi.sourceDir "brewfiles/headless" | quote }}
 {{ end -}}
-
-echo
-echo
-echo "--------------------------------"
-echo
-echo
-
-echo "Installing Node.js..."
-{{/* The work-devbox profile will have Node installed by default, it just doesn't enjoy version switching (yet). */}}
-{{ if not (eq .profile "work-devbox") -}}
-fnm install --lts --use --corepack-enabled
-{{ end -}}
-
-corepack enable pnpm
-
-node -v
-pnpm -v

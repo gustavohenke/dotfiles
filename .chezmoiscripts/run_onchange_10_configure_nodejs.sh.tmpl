@@ -1,0 +1,19 @@
+#!/bin/{{ .shell }}
+set -eu
+
+echo
+echo
+echo "::: Running configure_nodejs.sh script"
+
+{{ includeTemplate "source_env.tmpl" . }}
+
+echo "Installing Node.js..."
+{{/* The work-devbox profile will have Node installed by default, it just doesn't enjoy version switching (yet). */}}
+{{ if not (eq .profile "work-devbox") -}}
+fnm install --lts --use --corepack-enabled
+{{ end -}}
+
+corepack enable pnpm
+
+node -v
+pnpm -v
