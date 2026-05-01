@@ -26,13 +26,15 @@ install_deps() {
     return
   fi
 
-  if ! command -v brew > /dev/null; then
+  # Rather than testing for the brew command, test for the file.
+  # On a new setup, it might've been downloaded, but it's not in the path yet.
+  brew_path=$(get_brew_path)
+  if [ ! -f "$brew_path" ]; then
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    # Only temporarily add homebrew here; it'll be added to the shell environment permanently in the .zshenv file later
-    brew_path=$(get_brew_path)
-    eval "$($brew_path shellenv)"
   fi
+  # Only temporarily add homebrew here; it'll be added to the shell environment permanently in the .zshenv file later
+  eval "$($brew_path shellenv)"
 }
 
 get_brew_path() {
