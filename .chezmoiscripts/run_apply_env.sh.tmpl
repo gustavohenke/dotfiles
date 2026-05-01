@@ -1,6 +1,9 @@
 #!/bin/{{ .shell }}
+set -eu
 
 # Scripts might depend on paths exposed by the envfile (e.g. homebrew).
 # If it's not yet there, they will fail, so source the envfile ahead of them running.
+echo
+echo
 echo "::: Sourcing envfile"
 source "{{ joinPath .chezmoi.homeDir .envfile }}"
