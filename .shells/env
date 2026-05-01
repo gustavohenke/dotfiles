@@ -29,6 +29,13 @@ reset_shell_init() {
 # ```
 shell_init() {
     local tool="$1"
+
+    # if the tool is a path or a command that doesn't exist, don't do anything.
+    if [ ! -f "$tool" ] && ! command -v "$tool" > /dev/null; then
+        echo "'$tool' does not exist or is not in the PATH"
+        return
+    fi
+
     local tool_name=$(basename "$tool")
     local cache_dir="$HOME/.shell_init"
     mkdir -p "$cache_dir"
