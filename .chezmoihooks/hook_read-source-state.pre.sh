@@ -26,6 +26,12 @@ install_deps() {
     return
   fi
 
+  if [ "$(uname -s)" = "Linux" ]; then
+    # Unzip is needed for homebrew packages.
+    sudo apt update
+    sudo apt install -y unzip
+  fi
+
   # Rather than testing for the brew command, test for the file.
   # On a new setup, it might've been downloaded, but it's not in the path yet.
   brew_path=$(get_brew_path)
