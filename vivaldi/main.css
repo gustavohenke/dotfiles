@@ -1,0 +1,60 @@
+:root {
+    --window-border: 3px;
+}
+
+.inner {
+    background: var(--colorBg);
+}
+
+/* ---- */
+/* Tabs */
+/* ---- */
+
+/* Vivaldi sets a different shadow depending on the theme - but we don't want it at all */
+#browser:not(.theme-dark) #tabs-tabbar-container.left,
+#browser.theme-dark #tabs-tabbar-container.left {
+    /* Remove the vertical border that separates webview and tabs */
+    box-shadow: none !important;
+}
+
+#tabs-tabbar-container .toolbar .button-toolbar :is(button:hover, button:active) {
+    /* Override background that'd be inherited from page accent */
+    /* Using `!important` since it's not clear what the higher specificity in Vivaldi is for */
+    background-color: var(--colorBgDarker) !important;
+}
+
+/* ------ */
+/* Panels */
+/* ------ */
+
+#panels-container.right .panel-group,
+#panels-container.right.icons {
+    /* Hide the vertical border.
+       It appears when collapsed, or when expanded but not using floating panels. */
+    /* Using `!important` since it's not clear what the higher specificity in Vivaldi is for */
+    border-left: none !important;
+}
+
+/* ----------------- */
+/* Webview Container */
+/* ----------------- */
+
+#webview-container {
+    /* Create some margin so that the shadow is visible */
+    margin: var(--window-border) calc(var(--window-border) * 2) calc(var(--window-border) * 2) var(--window-border);
+    border-radius: calc(var(--radius) * 2);
+    /* Make sure that the border-radius is rendered */
+    overflow: hidden;
+    /* TODO: Add support for dark mode */
+    box-shadow: 0 var(--window-border) 8px rgba(0, 0, 0, 0.24);
+}
+
+/* Undo above customizations when the UI is hidden.
+   It's simpler to specify exactly when we want to undo them rather than negating every
+   scenario in a single selector. */
+.auto-hide #browser.fullscreen #webview-container,
+#browser.minimal-ui #webview-container {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+}

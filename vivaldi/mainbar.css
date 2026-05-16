@@ -1,0 +1,33 @@
+.color-behind-tabs-off .mainbar {
+    /* Remove background that'd be inherited from page accent */
+    background: var(--colorBg);
+    /* Use a contrasting color for text */
+    color: var(--colorFg);
+}
+
+.address-top .mainbar:has(.toolbar-addressbar.toolbar-visible) {
+    /* Remove bottom border */
+    border-bottom-width: 0;
+}
+
+.color-behind-tabs-off .toolbar-mainbar :is(
+    .button-toolbar,
+    .toolbar-extensions .button-toolbar
+) :is(button:hover, button:active, button.button-pressed) {
+    /* Override background that'd be inherited from page accent */
+    background-color: var(--colorBgDarker);
+    /* In a pressed state, the buttons will show a gradient - unset it */
+    background-image: none;
+}
+
+.color-behind-tabs-off .ExtensionIcon--Hidden {
+    background-color: var(--colorBgDark);
+}
+
+.color-behind-tabs-off :is(
+    .ExtensionIcon--Hidden:hover,
+    .ExtensionIcon--Hidden:active,
+    .ExtensionToggleIcon.ExtensionToggleIcon--Expanded
+) {
+    background-color: var(--colorBgDarker);
+}

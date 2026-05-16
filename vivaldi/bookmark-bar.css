@@ -1,0 +1,26 @@
+.color-behind-tabs-off .bookmark-bar {
+    /* Remove background that'd be inherited from page accent */
+    background: var(--colorBg);
+    /* Remove bottom border */
+    border-bottom-width: 0;
+}
+
+.color-behind-tabs-off .bookmark-bar {
+    /* Make sure that bookmark buttons don't take up the whole bookmark height */
+    padding: 2px;
+}
+
+.color-behind-tabs-off .bookmark-bar button {
+    /* Remove background that'd be inherited from page accent */
+    background: var(--colorBg);
+    color: var(--colorFg);
+}
+
+.color-behind-tabs-off .bookmark-bar :is(
+    button:hover,
+    button:focus-visible
+) {
+    /* Override background that'd be inherited from page accent */
+    background: var(--colorBgDarker);
+    border-radius: var(--radius);
+}

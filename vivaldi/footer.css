@@ -1,0 +1,3 @@
+#browser:not(.tabs-bottom) footer#footer {
+    border-top: none;
+}
