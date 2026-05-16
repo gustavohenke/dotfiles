@@ -1,4 +1,7 @@
 [packages]
 apt = [
+  # For mDNS
   "avahi-daemon",
+  # For podman - see https://github.com/containers/podman/issues/2211
+  "uidmap",
 ]

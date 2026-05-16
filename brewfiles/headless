@@ -1,3 +1,4 @@
-brew "ffmpeg"
 brew "fnm"
 brew "httpie"
+brew "podman"
+brew "podman-compose"
