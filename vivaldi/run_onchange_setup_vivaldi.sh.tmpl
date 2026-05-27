@@ -25,8 +25,33 @@ local ui_mods="{{ .chezmoi.destDir }}/vivaldi"
 local prefs
 IFS= read -r -d '' prefs < "$prefs_file" || true
 
+prefs=$(jq '.intl.accept_languages = "en-GB,en-US,en,pt-BR"' <<< "$prefs")
+
 # Make sure that the UI mods directory is used
 prefs=$(jq '.vivaldi.appearance.css_ui_mods_directory = "'"$ui_mods"'"' <<< "$prefs")
+
+# Set all workspace shortcuts. Note: it's off by 1 as the first workspace is "This window",
+# which can't have URL Rules.
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_1 = {}' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_2 = { shortcuts: ["ctrl+1"] }' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_3 = { shortcuts: ["ctrl+2"] }' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_4 = { shortcuts: ["ctrl+3"] }' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_5 = { shortcuts: ["ctrl+4"] }' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_6 = { shortcuts: ["ctrl+5"] }' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_7 = { shortcuts: ["ctrl+6"] }' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_8 = { shortcuts: ["ctrl+7"] }' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_9 = { shortcuts: ["ctrl+8"] }' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_WORKSPACE_SWITCH_10 = { shortcuts: ["ctrl+9"] }' <<< "$prefs")
+prefs=$(jq '.vivaldi.actions[0].COMMAND_MAIN_TOGGLE_TAB_BAR = { shortcuts: ["meta+\\"] }' <<< "$prefs")
+
+prefs=$(jq '.vivaldi.themes.user[0].name = "gustavohenke"' <<< "$prefs")
+prefs=$(jq '.vivaldi.themes.user[0].accentFromPage = true' <<< "$prefs")
+prefs=$(jq '.vivaldi.themes.user[0].accentOnWindow = false' <<< "$prefs")
+prefs=$(jq '.vivaldi.themes.user[0].accentSaturationLimit = 1' <<< "$prefs")
+prefs=$(jq '.vivaldi.themes.user[0].radius = 4' <<< "$prefs")
+prefs=$(jq '.vivaldi.themes.user[0].transparencyTabBar = true' <<< "$prefs")
+prefs=$(jq '.vivaldi.themes.user[0].transparencyTabs = true' <<< "$prefs")
+prefs=$(jq '.vivaldi.themes.user[0].colorPosition = "unified"' <<< "$prefs")
 
 printf '%s\n' "$prefs" > "$prefs_file"
 
