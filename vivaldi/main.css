@@ -1,9 +1,13 @@
 :root {
     --window-border: 3px;
+    /* Use a variable different from --colorBg to avoid conflicting with theming in the rest of the UI */
+    --colorBrowserBg: var(--colorTabBar);
 }
 
-.inner {
-    background: var(--colorBg);
+#main,
+#main .inner {
+  /* Allow the webview shadow to overflow */
+  overflow: visible;
 }
 
 /* ---- */
@@ -27,6 +31,11 @@
 /* Panels */
 /* ------ */
 
+#panels-container,
+#browser.unified-ui #panels-container .panel {
+  background-color: var(--colorBrowserBg);
+}
+
 #panels-container.right .panel-group,
 #panels-container.right.icons {
     /* Hide the vertical border.
@@ -39,9 +48,7 @@
 /* Webview Container */
 /* ----------------- */
 
-#webview-container {
-    /* Create some margin so that the shadow is visible */
-    margin: var(--window-border) calc(var(--window-border) * 2) calc(var(--window-border) * 2) var(--window-border);
+#webpage-stack {
     border-radius: calc(var(--radius) * 2);
     /* Make sure that the border-radius is rendered */
     overflow: hidden;

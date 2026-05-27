@@ -1,6 +1,6 @@
 .color-behind-tabs-off .mainbar {
     /* Remove background that'd be inherited from page accent */
-    background: var(--colorBg);
+    background: var(--colorBrowserBg);
     /* Use a contrasting color for text */
     color: var(--colorFg);
 }

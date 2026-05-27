@@ -1,6 +1,6 @@
 .color-behind-tabs-off .bookmark-bar {
     /* Remove background that'd be inherited from page accent */
-    background: var(--colorBg);
+    background: var(--colorBrowserBg);
     /* Remove bottom border */
     border-bottom-width: 0;
 }
