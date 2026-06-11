@@ -12,14 +12,11 @@
 
 .color-behind-tabs-off .bookmark-bar button {
     /* Remove background that'd be inherited from page accent */
-    background: var(--colorBg);
+    background: var(--colorBrowserBg);
     color: var(--colorFg);
 }
 
-.color-behind-tabs-off .bookmark-bar :is(
-    button:hover,
-    button:focus-visible
-) {
+.color-behind-tabs-off .bookmark-bar :is(button:hover, button:focus-visible, button.highlighted) {
     /* Override background that'd be inherited from page accent */
     background: var(--colorBgDarker);
     border-radius: var(--radius);
