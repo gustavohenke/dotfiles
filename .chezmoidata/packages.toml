@@ -2,6 +2,8 @@
 apt = [
   # For mDNS
   "avahi-daemon",
+  # For file sharing
+  "samba",
   # For podman - see https://github.com/containers/podman/issues/2211
   "uidmap",
 ]
