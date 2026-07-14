@@ -4,3 +4,7 @@
 .zshenv
 .zshrc
 {{- end }}
+
+{{- if not (eq .profile "personal" "work-laptop") }}
+vivaldi
+{{ end -}}
