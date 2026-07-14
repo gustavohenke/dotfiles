@@ -7,6 +7,9 @@ shell_init /home/linuxbrew/.linuxbrew/bin/brew shellenv
 # https://github.com/Schniz/fnm
 shell_init fnm env
 
+# https://direnv.net
+shell_init direnv hook {{ .shell }}
+
 # https://github.com/rbenv/rbenv
 # http://mattgreensmith.net/2014/12/25/speed-up-rbenv-init-via-background-rehashing/
 # Currently disabled because this adds 1.5s to terminal startup time
