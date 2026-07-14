@@ -1,4 +1,5 @@
 brew "deno"
+brew "direnv"
 brew "fnm"
 brew "httpie"
 brew "podman"
