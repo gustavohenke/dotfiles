@@ -27,6 +27,11 @@
     background-color: var(--colorBgDarker) !important;
 }
 
+#tabs-tabbar-container .toolbar-tabbar-after.toolbar-vertical {
+    /* Make the section after the tablist actually take up the remaining vertical space */
+    flex-direction: column;
+}
+
 /* ------ */
 /* Panels */
 /* ------ */
@@ -49,6 +54,8 @@
 /* ----------------- */
 
 #webpage-stack {
+    /* Create some margin so that the shadow is visible */
+    margin: var(--window-border) calc(var(--window-border) * 2) calc(var(--window-border) * 2) var(--window-border);
     border-radius: calc(var(--radius) * 2);
     /* Make sure that the border-radius is rendered */
     overflow: hidden;
