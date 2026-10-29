@@ -47,4 +47,8 @@ autoload -U zmv
 {{ if eq .chezmoi.os "darwin" -}}
 # macOS clang overrides brew's one for some reason, so update it here
 export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$HOME/.local/bin:$PATH"
+
+# rustup is keg only, so rustc and etc aren't offered by default.
+# Also link Cargo installed executables here too.
+export PATH="$(brew --prefix rustup)/bin:$HOME/.cargo/bin:$PATH"
 {{ end -}}

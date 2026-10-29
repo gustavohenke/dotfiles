@@ -108,7 +108,6 @@ alias gendeps='canva && cd web && pnpm lint:deps:fix'
 # ------------
 
 if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi # added by Nix installer
-if [ -s "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
 
 # this enables `pnpm link -g`, basically
 {{ if eq .chezmoi.os "darwin" -}}
