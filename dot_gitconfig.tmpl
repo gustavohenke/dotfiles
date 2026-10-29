@@ -19,10 +19,10 @@
   # Shows diff stats between HEAD and another branch
   diffbase = "!f() { git diff --stat \"$(git merge-base HEAD \"$1\")\" HEAD; }; f"
   # Checks out a remote branch that's not available locally
-	checkout-remote = "!f() { git fetch origin \"$1:refs/remotes/origin/$1\" && git checkout -b \"$1\" --no-track \"refs/remotes/origin/$1\"; }; f"
+  checkout-remote = "!f() { git fetch origin \"$1:refs/remotes/origin/$1\" && git checkout -b \"$1\" --no-track \"refs/remotes/origin/$1\"; }; f"
   # Fetches a branch and force resets local state to match it (discards local changes)
   # Intentionally named `sync-remote` to be the counterpart to `checkout-remote` above.
-	sync-remote = "!f() { git fetch origin \"$1\" && git reset --hard FETCH_HEAD; }; f"
+  sync-remote = "!f() { git fetch origin \"$1\" && git reset --hard FETCH_HEAD; }; f"
 
 [diff "plist"]
   textconv = plutil -convert xml1 -o -
